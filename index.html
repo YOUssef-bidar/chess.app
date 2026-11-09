@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>بومة الشطرنج – مدرّبك المرح</title>
+<link rel="manifest" href="manifest.json">
+<meta name="theme-color" content="#2f7d4f">
+<link rel="icon" href="icons/icon-192.png">
+<link rel="apple-touch-icon" href="icons/icon-192.png">
+<style>
+:root{--bg:#f6f1e7;--fg:#22302a;--card:#fff;--l:#f0e6d0;--d:#6a9a64;--acc:#2f7d4f;--mut:#6b756f;color-scheme:light;
+box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#14201a;--fg:#e9efe9;--card:#1d2c24;--l:#cfc3a6;--d:#4d7a49;--acc:#5fbf86;--mut:#9fb0a6;color-scheme:dark}}
+:root[data-theme="dark"]{--bg:#14201a;--fg:#e9efe9;--card:#1d2c24;--l:#cfc3a6;--d:#4d7a49;--acc:#5fbf86;--mut:#9fb0a6;color-scheme:dark}
+html{scroll-padding-top:env(safe-area-inset-top,0px)}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--fg);font-family:"Cairo","Tajawal","Segoe UI",Tahoma,sans-serif;line-height:1.6}
+main{max-width:480px;margin:0 auto;padding:12px}
+h1{font-size:1.25rem;margin:4px 0 10px;text-align:center}
+.tabs{display:flex;gap:8px;margin-bottom:10px}
+.tabs button{flex:1}
+button,select{font:inherit;border:0;border-radius:12px;padding:10px 12px;background:var(--card);color:var(--fg);box-shadow:0 1px 3px rgba(0,0,0,.18);cursor:pointer}
+button.on{background:var(--acc);color:#fff}
+.row{display:flex;gap:8px;margin:10px 0;flex-wrap:wrap}
+.row>*{flex:1;min-width:30%}
+.bd{display:grid;grid-template-columns:repeat(8,1fr);direction:ltr;width:min(94vw,460px);aspect-ratio:1;margin:auto;border-radius:10px;overflow:hidden;box-shadow:0 4px 14px rgba(0,0,0,.3)}
+.sq{display:flex;align-items:center;justify-content:center;font-size:min(9.5vw,44px);line-height:1;position:relative;cursor:pointer;-webkit-tap-highlight-color:transparent;font-family:"Segoe UI Symbol","Noto Sans Symbols 2",sans-serif}
+.l{background:var(--l)}.d{background:var(--d)}
+.last{box-shadow:inset 0 0 0 100px rgba(255,214,0,.28)}
+.sel{box-shadow:inset 0 0 0 3px var(--acc),inset 0 0 0 100px rgba(255,255,255,.25)}
+.hint{box-shadow:inset 0 0 0 4px #e8b200}
+.dot::after{content:"";position:absolute;width:28%;height:28%;border-radius:50%;background:rgba(0,0,0,.28)}
+.w{color:#fff;text-shadow:0 0 2px #000,0 0 3px #000,0 1px 1px #000}
+.b{color:#1b1b1b}
+.coach{display:flex;gap:10px;align-items:flex-start;background:var(--card);border-radius:14px;padding:12px;margin-top:12px;box-shadow:0 1px 4px rgba(0,0,0,.15)}
+.coach .av{font-size:2rem;line-height:1}
+#msg{white-space:pre-line;margin:0}
+#st{text-align:center;color:var(--mut);margin:8px 0 0;min-height:1.6em}
+details{background:var(--card);border-radius:14px;padding:12px;margin:10px 0;box-shadow:0 1px 4px rgba(0,0,0,.15)}
+summary{font-weight:700;cursor:pointer}
+details p{margin:8px 0 0}
+.ch{color:var(--acc);font-weight:700}
+.note{color:var(--mut);font-size:.85rem;text-align:center;margin-top:14px}
+[hidden]{display:none!important}
+</style>
+</head>
+<body>
+<main>
+<h1>🦉 بومة الشطرنج</h1>
+<div class="tabs">
+<button id="t1" class="on">♟ العب وتعلّم</button>
+<button id="t2">📚 الدروس</button>
+</div>
+
+<section id="play">
+<div id="bd" class="bd" aria-label="رقعة الشطرنج"></div>
+<p id="st"></p>
+<div class="row">
+<select id="lv" aria-label="المستوى"><option value="1">مبتدئ</option><option value="2" selected>متوسط</option><option value="3">قوي</option></select>
+<button id="hb">💡 تلميح</button>
+<button id="ub">↩ تراجع</button>
+<button id="nb">🔄 جديدة</button>
+</div>
+<div class="coach"><div class="av">🦉</div><p id="msg">أهلاً! أنت تلعب بالأبيض. حرّك أي قطعة وسأقيّم نقلتك وأشرح لك بالمبادئ الكلاسيكية.</p></div>
+</section>
+
+<section id="les" hidden>
+<details open><summary>🏇 ١. طوّر قطعك</summary><p>لا تترك أحصنتك وأفيالك نائمة في البيت! في البداية كل نقلة يجب أن تُخرج قطعة جديدة للميدان، والبيدق يتحرك بقدر الحاجة فقط.</p><p class="ch">تحدّي: في أول ١٠ نقلات حرّك الحصانين والفيلين قبل أي شيء آخر.</p></details>
+<details><summary>🎯 ٢. احكم المركز</summary><p>المربعات e4 وd4 وe5 وd5 هي قلب الرقعة. القطعة في المركز ترى أكثر وتصل أسرع، تماماً مثل لاعب كرة يقف في وسط الملعب.</p><p class="ch">تحدّي: ابدأ بتحريك بيدق e أو d خطوتين.</p></details>
+<details><summary>🏰 ٣. الملك أولاً</summary><p>ملكك كنز! ضعه في الخزنة بالتبييت مبكراً، ثم أخرج الأبراج للعمل. الملك العالق في الوسط يجذب الهجمات.</p><p class="ch">تحدّي: بيّض ملكك خلال أول ١٠ نقلات.</p></details>
+<details><summary>🧮 ٤. احسب قيمة القطع</summary><p>البيدق ١، الحصان والفيل ٣، الرخ ٥، الملكة ٩. لا تبادل ملكتك بحصان! وقبل كل نقلة اسأل نفسك: هل تركت قطعة معلّقة بلا حماية؟ وهل يهددني الخصم بشيء؟</p><p class="ch">تحدّي: قبل كل نقلة، ابحث عن قطعة بلا حماية عند الطرفين.</p></details>
+<details><summary>👑 ٥. الملك محارب في النهاية</summary><p>عندما تقل القطع يصبح الملك قوياً جداً، فأخرجه للمشاركة. وحرّك بيادقك الحرة نحو الصف الأخير لتتوّج ملكة جديدة.</p><p class="ch">تحدّي: في نهاية اللعب، تقدّم بملكك نحو الوسط.</p></details>
+<p class="note">الدروس مبنية على المبادئ الكلاسيكية لكبار المعلّمين (كابابلانكا، ستاينيتز، نيمزوفيتش وغيرهم) ومكتوبة بصياغتنا الخاصة.</p>
+</section>
+</main>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/chess.js/0.10.3/chess.min.js"></script>
+<script>
+(function(){
+var $=function(i){return document.getElementById(i)};
+var g=new Chess(),V={p:100,n:320,b:330,r:500,q:900,k:0};
+var G={p:'♟',n:'♞',b:'♝',r:'♜',q:'♛',k:'♚'};
+var sel=null,moves=[],last=null,hint=null,busy=false;
+
+function ev(c){var s=0,b=c.board();
+ for(var r=0;r<8;r++)for(var f=0;f<8;f++){var p=b[r][f];if(!p)continue;
+  var v=V[p.type];
+  if(p.type==='p'||p.type==='n'||p.type==='b'){var cd=7-Math.abs(f-3.5)-Math.abs(r-3.5);v+=cd*(p.type==='p'?4:5);}
+  s+=p.color==='w'?v:-v;}
+ return s;}
+
+function se(c,d,a,b){
+ if(d===0)return (c.turn()==='w'?1:-1)*ev(c);
+ var ms=c.moves({verbose:true});
+ if(!ms.length)return c.in_check()?-99999-d:0;
+ ms.sort(function(x,y){return (y.captured?V[y.captured]:0)-(x.captured?V[x.captured]:0)});
+ for(var i=0;i<ms.length;i++){c.move(ms[i]);var s=-se(c,d-1,-b,-a);c.undo();if(s>a)a=s;if(a>=b)break;}
+ return a;}
+
+function rank(c,d){
+ return c.moves({verbose:true}).map(function(m){c.move(m);var s=-se(c,d-1,-1e6,1e6);c.undo();return{m:m,s:s};})
+  .sort(function(a,b){return b.s-a.s});}
+
+function draw(){
+ var b=g.board(),el=$('bd');el.textContent='';
+ for(var r=0;r<8;r++)for(var f=0;f<8;f++){(function(){
+  var sq='abcdefgh'[f]+(8-r),p=b[r][f],d=document.createElement('div');
+  d.className='sq '+((r+f)%2?'d':'l');
+  if(sq===sel)d.classList.add('sel');
+  if(last&&(sq===last.from||sq===last.to))d.classList.add('last');
+  if(hint&&(sq===hint.from||sq===hint.to))d.classList.add('hint');
+  if(moves.some(function(x){return x.to===sq}))d.classList.add('dot');
+  if(p){var s=document.createElement('span');s.className=p.color;s.textContent=G[p.type]+'\uFE0E';d.appendChild(s);}
+  d.onclick=function(){tap(sq)};
+  el.appendChild(d);})();}
+ $('st').textContent=g.game_over()?'انتهت اللعبة':g.in_check()?'كش! ⚠️':(g.turn()==='w'?'دورك':'الخصم يفكّر…');}
+
+function say(t){$('msg').textContent=t;}
+
+function tap(sq){
+ if(busy||g.game_over()||g.turn()!=='w')return;
+ if(sel){var mv=moves.filter(function(x){return x.to===sq&&(!x.promotion||x.promotion==='q')})[0];if(mv){play(mv);return;}}
+ var p=g.get(sq);
+ if(p&&p.color==='w'){sel=sq;moves=g.moves({square:sq,verbose:true});}else{sel=null;moves=[];}
+ draw();}
+
+var L=[[25,'ممتازة 🌟',['نقلة أستاذ! البومة تصفّق بجناحيها 🦉👏','نقلة يحسدك عليها كبار المعلّمين 😎']],
+[70,'جيدة 👍',['نقلة سليمة، كمّل بنفس الروح!','تمام التمام، لا مشكلة هنا.']],
+[170,'غير دقيقة 🤔',['مقبولة، لكن يوجد أفضل منها.','ليست كارثة، لكن البومة رفعت حاجبها 🤨']],
+[400,'خطأ 😬',['أوه! هذه النقلة أعطت الخصم فرصة.','انتبه، الخصم سيستفيد من هذه.']],
+[1e9,'خطأ فادح 😱',['ياااه! البومة سقطت عن الغصن 🦉💥','كلّفتك غالياً… لكن الخطأ أفضل معلّم!']]];
+
+function report(i,rp){
+ var x=L.filter(function(a){return i.loss<a[0]})[0];
+ var t=x[1]+' — '+x[2][Math.floor(Math.random()*2)];
+ if(i.loss>=70)t+='\nالأفضل كان: '+i.best;
+ if(i.loss>=150&&rp&&rp.captured)t+='\n💡 مبدأ: لا تترك قطعة معلّقة بلا حماية (راجع درس قيمة القطع).';
+ else if(i.loss<70){
+  if(i.m.san.indexOf('O-O')===0)t+='\n🏰 تبييت! ملكك في الأمان.';
+  else if(i.n<=20&&(i.m.piece==='n'||i.m.piece==='b'))t+='\n🏇 تطوير ممتاز للقطع.';
+  else if(i.m.piece==='p'&&['e4','d4','e5','d5'].indexOf(i.m.to)>-1)t+='\n🎯 سيطرة على المركز!';}
+ if(i.m.piece==='q'&&i.n<=16&&i.loss>=25)t+='\n👑 الملكة مبكراً تصبح هدفاً، اترك لها وقتها.';
+ say(t);}
+
+function end(){
+ if(g.in_checkmate())say(g.turn()==='b'?'🎉 كش مات! فزت! أنت بطل حقيقي!':'😅 كش مات… خسرت هذه الجولة، جرّب مرة أخرى وتعلّم من الأخطاء.');
+ else say('🤝 تعادل! نتيجة محترمة.');
+ draw();}
+
+function play(mv){
+ busy=true;hint=null;
+ var r=rank(g,2),best=r[0],me=r.filter(function(x){return x.m.from===mv.from&&x.m.to===mv.to&&(x.m.promotion||'')===(mv.promotion||'')})[0]||best;
+ var info={loss:Math.min(best.s-me.s,1000),best:best.m.san,m:mv,n:g.history().length};
+ g.move({from:mv.from,to:mv.to,promotion:'q'});last=mv;sel=null;moves=[];draw();
+ if(g.game_over()){report(info,null);end();busy=false;return;}
+ say('البومة تحلّل نقلتك… 🦉');
+ setTimeout(function(){
+  var rp=engine();draw();
+  if(g.game_over())end();else report(info,rp);
+  busy=false;draw();},300);}
+
+function engine(){
+ var lv=+$('lv').value,r=rank(g,lv===1?1:lv===2?2:3),pick;
+ if(lv===1)pick=r[Math.floor(Math.random()*Math.min(8,r.length))];
+ else if(lv===2){var t=r.filter(function(x){return x.s>=r[0].s-15});pick=t[Math.floor(Math.random()*t.length)];}
+ else pick=r[0];
+ g.move(pick.m);last=pick.m;return pick.m;}
+
+$('hb').onclick=function(){
+ if(busy||g.game_over()||g.turn()!=='w')return;
+ var m=rank(g,2)[0].m;hint=m;say('💡 تلميح: جرّب '+m.san);draw();};
+$('ub').onclick=function(){
+ if(busy)return;g.undo();if(g.turn()==='b')g.undo();
+ sel=null;moves=[];last=null;hint=null;say('تراجعنا خطوة، حاول من جديد!');draw();};
+$('nb').onclick=function(){
+ if(busy)return;g.reset();sel=null;moves=[];last=null;hint=null;say('لعبة جديدة! أنت بالأبيض، ابدأ بالمركز 🎯');draw();};
+function tab(a){$('play').hidden=!a;$('les').hidden=a;$('t1').className=a?'on':'';$('t2').className=a?'':'on';}
+$('t1').onclick=function(){tab(true)};$('t2').onclick=function(){tab(false)};
+draw();
+if("serviceWorker" in navigator){window.addEventListener("load",function(){navigator.serviceWorker.register("sw.js").catch(function(){});});}
+})();
+</script>
+</body>
+</html>
